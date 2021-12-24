@@ -1,129 +1,97 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+#imported turtle module
+import turtle
+ 
+wind = turtle.Screen()
+#Set the title of the window
+wind.title("PingPong")
+#Set the background color of the window
+wind.bgcolor("light blue")
+#Set the width and the height of the window
+wind.setup(width=800, height=600)
+#Stop the window from updaiting auto
+wind.tracer(0)
 
-# C extensions
-*.so
+#madrab1
+madrab1 = turtle.Turtle()
+madrab1.speed(0)
+madrab1.shape("square")
+madrab1.shapesize(stretch_wid=5,stretch_len=1)
+madrab1.color("blue")
+madrab1.penup()
+madrab1.goto(-350,0)
+#madrab2
+madrab2 = turtle.Turtle()
+madrab2.speed(0)
+madrab2.shape("square")
+madrab2.shapesize(stretch_wid=5,stretch_len=1)
+madrab2.color("red")
+madrab2.penup()
+madrab2.goto(+350,0)
+#ball
+ball= turtle.Turtle()
+ball.speed(1)
+ball.shape("circle")
+ball.shapesize(stretch_wid=2,stretch_len=2)
+ball.color("black")
+ball.penup()
+ball.goto(00,00)
+#main game loop
+def madrab1_up():
+    y=madrab1.ycor()
+    y+=20
+    madrab1.sety(y)
+wind.listen()
+wind.onkeypress(madrab1_up, "g")
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+def madrab1_down():
+    y=madrab1.ycor()
+    y-=20
+    madrab1.sety(y)
+wind.listen()
+wind.onkeypress(madrab1_down, "f")
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
+def madrab2_up():
+    y=madrab2.ycor()
+    y+=20
+    madrab2.sety(y)
+wind.listen()
+wind.onkeypress(madrab2_up, "j")
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
+def madrab2_down():
+    y=madrab2.ycor()
+    y-=20
+    madrab2.sety(y)
+wind.listen()
+wind.onkeypress(madrab2_down, "h")
 
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
+ball.dx = 2.5
+ball.dy = 2.5
 
-# Translations
-*.mo
-*.pot
+while True:
+    wind.update()
+    ball.setx(ball.xcor() + ball.dx)
+    ball.sety(ball.ycor() + ball.dy)
 
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
+    if ball.ycor() >290:
+        ball.sety(290)
+        ball.dy *= -1
+    
+    if ball.ycor() <-290:
+        ball.sety(-290)
+        ball.dy *= -1
 
-# Flask stuff:
-instance/
-.webassets-cache
+    if ball.xcor() >390:
+        ball.goto(0,0)
+        ball.dx *= -1
 
-# Scrapy stuff:
-.scrapy
+    if ball.xcor()<-390:
+        ball.goto(0,0)
+        ball.dx *= -1
 
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-target/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# IPython
-profile_default/
-ipython_config.py
-
-# pyenv
-.python-version
-
-# pipenv
-#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
-#   However, in case of collaboration, if having platform-specific dependencies or dependencies
-#   having no cross-platform support, pipenv may install dependencies that don't work, or not
-#   install all needed dependencies.
-#Pipfile.lock
-
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow
-__pypackages__/
-
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
-
-# SageMath parsed files
-*.sage.py
-
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
+    if (ball.xcor()> 340 and ball.xcor < 350) and (ball.ycor()<madrab2.ycor()+ 40 and ball.ycor()> madrab2.ycor()-40 ):
+        ball.setx(340)
+        ball.dx *= -1
+    
+    if (ball.xcor()<-340 and ball.xcor >-350) and (ball.ycor()<madrab1.ycor()+ 40 and ball.ycor()> madrab2.ycor()-40 ):
+        ball.setx(-340)
+        ball.dx *= -1
